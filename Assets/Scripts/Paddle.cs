@@ -9,8 +9,6 @@ public class Paddle : MonoBehaviour
     private float leftMargin;
     private float rightMargin;
 
-
-
     private void Awake()
     {
         leftMargin = Camera.main.ViewportToWorldPoint(Vector3.zero).x;
@@ -35,4 +33,5 @@ public class Paddle : MonoBehaviour
         newPosotion.z = 0;
         transform.position = newPosotion;
     }
+
 }
