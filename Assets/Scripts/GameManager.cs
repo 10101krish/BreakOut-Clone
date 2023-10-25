@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject ballPrefab;
     public GameObject ballsParentGameObject;
+    public GameObject[] bricks;
 
     private Ball currentMainBall;
     private int ballCount = 0;
