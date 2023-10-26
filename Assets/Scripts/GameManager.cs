@@ -1,6 +1,8 @@
 using System.Reflection;
 using Unity.Mathematics;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject ballPrefab;
     public GameObject ballsParentGameObject;
 
-    public GameObject bricks;
+    public GameObject brickParentGameObject;
+    private int brickCount;
 
     public Ball currentMainBall;
     private int ballCount = 0;
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         actions = new System.Action[] { paddle.IncreasePaddleSize, paddle.DecreasePaddleSize, this.MultipleBallsPowerUp };
+        CountNumberOfBricks();
         NewBall();
     }
 
@@ -49,6 +53,12 @@ public class GameManager : MonoBehaviour
                 FindNewBall();
             paddle.gameObject.transform.position = new Vector3(currentMainBall.gameObject.transform.position.x, paddle.gameObject.transform.position.y, paddle.gameObject.transform.position.z);
         }
+    }
+
+    private void CountNumberOfBricks()
+    {
+        Brick[] bricks = brickParentGameObject.GetComponentsInChildren<Brick>();
+        brickCount = bricks.Length;
     }
 
     private void FindNewBall()
@@ -76,11 +86,22 @@ public class GameManager : MonoBehaviour
     {
         ballCount--;
         if (currentMainBall = ball)
-        {
             currentMainBall = null;
-        }
         if (ballCount <= 0)
+            LifeLost();
+    }
+
+    private void LifeLost()
+    {
+        gameSystem.DecreaseLives();
+        if (gameSystem.GetCurrentLives() > 0)
             NewBall();
+        else
+        {
+            Debug.Log("Game Lost");
+            Destroy(gameSystem.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void FreeBallFromPaddle()
@@ -97,6 +118,12 @@ public class GameManager : MonoBehaviour
     public void BrickDestroyed()
     {
         gameSystem.IncreaseScore(brickDestroyedScore);
+        brickCount--;
+        if (brickCount == 0)
+        {
+            gameSystem.IncreaseLevel();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void PowerUpHit()
