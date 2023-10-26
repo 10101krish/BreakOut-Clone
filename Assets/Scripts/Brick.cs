@@ -48,6 +48,12 @@ public class Brick : MonoBehaviour
         }
     }
 
+    public void DestoyedByBomb()
+    {
+        gameManager.BrickDestroyed();
+        Destroy(gameObject);
+    }
+
     private void PowerUpSpawner()
     {
         float randomNumber = Random.Range(0f, 1f);

@@ -42,14 +42,12 @@ public class Paddle : MonoBehaviour
 
     public void IncreasePaddleSize()
     {
-        Debug.Log("+");
         paddleLength = Mathf.Clamp(paddleLength + 1, minPaddleLength, maxPaddleLength);
         UpdatePaddleSize();
     }
 
     public void DecreasePaddleSize()
     {
-        Debug.Log("-");
         paddleLength = Mathf.Clamp(paddleLength - 1, minPaddleLength, maxPaddleLength);
         UpdatePaddleSize();
     }

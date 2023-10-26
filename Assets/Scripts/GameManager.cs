@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        actions = new System.Action[] { this.MultipleBallsPowerUp };
+        actions = new System.Action[] { paddle.IncreasePaddleSize, paddle.DecreasePaddleSize, this.MultipleBallsPowerUp };
         NewBall();
     }
 
@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour
 
     public void PowerUpHit()
     {
-        // Debug.Log(actions.Length);
         int randomIndex = UnityEngine.Random.Range(0, actions.Length);
         actions[randomIndex]();
     }

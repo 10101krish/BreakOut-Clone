@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Brick
   - Ball
+  - Bomb
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Respawn
   - PowerUp
   - Bricks
-  - 
+  - Bomb
   - 
   - 
   - 

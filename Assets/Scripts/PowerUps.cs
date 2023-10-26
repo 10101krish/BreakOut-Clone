@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PowerUps : MonoBehaviour
 {
-    // private Color color = new Color(255, 0, 255, 255);
     private GameManager gameManager;
 
     private new Rigidbody2D rigidbody2D;

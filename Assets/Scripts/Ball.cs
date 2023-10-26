@@ -9,8 +9,6 @@ public class Ball : MonoBehaviour
 
     public float startingForce = 5f;
     public float randomFactor = 1f;
-    // public float angleDeviation = 5f;
-
 
     private void Awake()
     {
@@ -60,6 +58,11 @@ public class Ball : MonoBehaviour
         {
             Vector2 normal = other.GetContact(0).normal;
             rigidbody2D.AddForce(Random.insideUnitCircle * randomFactor);
+
+            // float angle = UnityEngine.Random.Range(-75, 75);
+            // normal.Normalize();
+            // Vector2 randomForce = normal * (1 / Mathf.Cos(angle * Mathf.Deg2Rad)) * randomFactor;
+            // Debug.Log(randomForce);
         }
     }
 
