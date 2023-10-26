@@ -15,14 +15,14 @@ public class Paddle : MonoBehaviour
         rightMargin = Camera.main.ViewportToWorldPoint(Vector3.right).x;
     }
 
+    private void Start()
+    {
+        UpdatePaddleSize();
+    }
+
     private void Update()
     {
         MoveMouse();
-    }
-
-    private void FixedUpdate()
-    {
-
     }
 
     private void MoveMouse()
@@ -32,6 +32,11 @@ public class Paddle : MonoBehaviour
         newPosotion.y = transform.position.y;
         newPosotion.z = 0;
         transform.position = newPosotion;
+    }
+
+    private void UpdatePaddleSize()
+    {
+        transform.localScale = new Vector3(paddleLength, transform.localScale.y, transform.localScale.z);
     }
 
 }

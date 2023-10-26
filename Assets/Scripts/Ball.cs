@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -9,6 +8,9 @@ public class Ball : MonoBehaviour
     private bool ballInPlay;
 
     public float startingForce = 5f;
+    public float randomFactor = 1f;
+    // public float angleDeviation = 5f;
+
 
     private void Awake()
     {
@@ -36,12 +38,26 @@ public class Ball : MonoBehaviour
         ballInPlay = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Respawn"))
         {
             gameManager.BallOutOfPlayZone();
             Destroy(gameObject);
         }
+        else if (ballInPlay)
+        {
+            Vector2 normal = other.GetContact(0).normal;
+            rigidbody2D.AddForce(Random.insideUnitCircle * randomFactor);
+        }
     }
+
+    // Vector2 normal = other.contacts[0].normal;
+    // float inclinationAngle = Vector2.SignedAngle(normal, rigidbody2D.velocity);
+
+    // float alterredAngle = Mathf.Clamp(UnityEngine.Random.Range(inclinationAngle - angleDeviation, inclinationAngle + angleDeviation), -maxBounceAngle, maxBounceAngle);
+    // Quaternion rotation = Quaternion.AngleAxis(alterredAngle, normal);
+    // Vector2 reflectedVelocity = rotation * normal * rigidbody2D.velocity.magnitude;
+    // rigidbody2D.velocity = reflectedVelocity;
+
 }
