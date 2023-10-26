@@ -8,9 +8,14 @@ public class Paddle : MonoBehaviour
 
     private float leftMargin;
     private float rightMargin;
+    public bool autoPlay = false;
+
+    public int minPaddleLength = 2;
+    public int maxPaddleLength = 5;
 
     private void Awake()
     {
+        autoPlay = false;
         leftMargin = Camera.main.ViewportToWorldPoint(Vector3.zero).x;
         rightMargin = Camera.main.ViewportToWorldPoint(Vector3.right).x;
     }
@@ -22,7 +27,8 @@ public class Paddle : MonoBehaviour
 
     private void Update()
     {
-        MoveMouse();
+        if (!autoPlay)
+            MoveMouse();
     }
 
     private void MoveMouse()
@@ -32,6 +38,20 @@ public class Paddle : MonoBehaviour
         newPosotion.y = transform.position.y;
         newPosotion.z = 0;
         transform.position = newPosotion;
+    }
+
+    public void IncreasePaddleSize()
+    {
+        Debug.Log("+");
+        paddleLength = Mathf.Clamp(paddleLength + 1, minPaddleLength, maxPaddleLength);
+        UpdatePaddleSize();
+    }
+
+    public void DecreasePaddleSize()
+    {
+        Debug.Log("-");
+        paddleLength = Mathf.Clamp(paddleLength - 1, minPaddleLength, maxPaddleLength);
+        UpdatePaddleSize();
     }
 
     private void UpdatePaddleSize()

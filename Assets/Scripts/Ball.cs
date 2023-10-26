@@ -34,6 +34,17 @@ public class Ball : MonoBehaviour
     public void BallInPlay()
     {
         Vector2 force = Vector2.up * startingForce;
+        AddForceToBall(force);
+    }
+
+    public void BallInstaiatedThroughPowerUp()
+    {
+        Vector2 force = Random.insideUnitCircle * startingForce;
+        AddForceToBall(force);
+    }
+
+    private void AddForceToBall(Vector2 force)
+    {
         rigidbody2D.AddForce(force, ForceMode2D.Impulse);
         ballInPlay = true;
     }
@@ -42,7 +53,7 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Respawn"))
         {
-            gameManager.BallOutOfPlayZone();
+            gameManager.BallOutOfPlayZone(this);
             Destroy(gameObject);
         }
         else if (ballInPlay)
