@@ -2855,7 +2855,7 @@ MonoBehaviour:
   maxBallCount: 5
   brickHitScore: 50
   brickDestroyedScore: 100
-  autoplayEnabled: 1
+  autoplayEnabled: 0
 --- !u!1001 &1693697876
 PrefabInstance:
   m_ObjectHideFlags: 0

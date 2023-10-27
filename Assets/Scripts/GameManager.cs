@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject ballsParentGameObject;
 
     public GameObject brickParentGameObject;
-    private int brickCount;
+    private int brickCount = 0;
 
     public Ball currentMainBall;
     private int ballCount = 0;
@@ -27,16 +27,19 @@ public class GameManager : MonoBehaviour
     public bool autoplayEnabled = false;
 
     private System.Action[] actions;
+    public bool brickSpawnerPresent = false;
 
     private void Awake()
     {
+        brickCount = 0;
         gameSystem = FindObjectOfType<GameSystem>();
     }
 
     private void Start()
     {
         actions = new System.Action[] { paddle.IncreasePaddleSize, paddle.DecreasePaddleSize, this.MultipleBallsPowerUp };
-        CountNumberOfBricks();
+        if (!brickSpawnerPresent)
+            CountNumberOfBricks();
         NewBall();
     }
 
@@ -138,5 +141,10 @@ public class GameManager : MonoBehaviour
         ballCount += extraBalls;
         for (int i = 1; i <= extraBalls; i++)
             InstantiateNewBall(currentMainBall.gameObject.transform.position).BallInstaiatedThroughPowerUp();
+    }
+
+    public void BrickSpawnedBySpawner()
+    {
+        brickCount += 1;
     }
 }
